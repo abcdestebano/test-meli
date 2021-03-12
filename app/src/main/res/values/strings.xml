@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Meli</string>
+    <string name="description_menu">Open Menu</string>
+    <string name="description_shooing_Cart">Open Cart</string>
+    <string name="text_hint_search">Buscar en Mercado Libre</string>
+    <string name="text_example_location">Enviar a Esteban Aragon - Carrera 79 #19-88</string>
+    <string name="btn_try_again">Reintentar</string>
+    <string name="text_search_empty_state">Puedes buscar productos, marcas y más...</string>
+    <string name="text_offline_empty_state">¡Parece que no hay internet!</string>
+    <string name="text_coming_soon">Coming soon</string>
+    <string name="txv_aux">en</string>
+</resources>
