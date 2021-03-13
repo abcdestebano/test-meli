@@ -1,4 +1,4 @@
-package com.meli.app
+package com.meli.app.utils.extensions
 
 import android.content.Context
 import android.net.ConnectivityManager

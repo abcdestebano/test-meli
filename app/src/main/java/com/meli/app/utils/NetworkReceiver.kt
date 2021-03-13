@@ -1,8 +1,9 @@
-package com.meli.app
+package com.meli.app.utils
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.meli.app.utils.extensions.isOnline
 
 abstract class NetworkReceiver : BroadcastReceiver() {
 

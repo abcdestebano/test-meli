@@ -4,7 +4,7 @@
     <style name="Theme.Meli" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/meli_yellow</item>
         <item name="colorAccent">@color/meli_blue</item>
-        <item name="android:colorBackground">@color/meli_grey_light</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
     </style>
 
