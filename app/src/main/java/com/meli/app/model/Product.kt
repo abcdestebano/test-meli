@@ -11,6 +11,6 @@ data class Product(
     val pictures: List<ProductPicture>,
     val attributes: List<ProductAttribute>,
     val warranty: String,
-    @SerializedName("initial_quantity")
-    val initialQuantity: Int
+    @SerializedName("available_quantity")
+    val availableQuantity: Int
 )

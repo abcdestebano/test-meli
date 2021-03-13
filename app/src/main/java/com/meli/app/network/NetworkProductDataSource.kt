@@ -3,6 +3,7 @@ package com.meli.app.network
 import com.meli.app.utils.MeliResult
 import com.meli.app.api.ProductApiService
 import com.meli.app.data.ProductDataSource
+import com.meli.app.model.Product
 import com.meli.app.model.ProductItem
 
 class NetworkProductDataSource(
@@ -15,6 +16,17 @@ class NetworkProductDataSource(
         }
         return if (result is MeliResult.Success) {
             MeliResult.Success(result.data.results)
+        } else {
+            MeliResult.Error(result.toString())
+        }
+    }
+
+    override suspend fun getProductById(productId: String): MeliResult<Product> {
+        val result = executeRetrofitRequest {
+            productApiService.getProductById(productId)
+        }
+        return if (result is MeliResult.Success) {
+            MeliResult.Success(result.data)
         } else {
             MeliResult.Error(result.toString())
         }

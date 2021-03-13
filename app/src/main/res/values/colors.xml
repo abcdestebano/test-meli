@@ -2,6 +2,7 @@
 <resources>
     <color name="meli_yellow">#FFD600</color>
     <color name="meli_blue">#3483FA</color>
+    <color name="meli_blue_light">#E3EDFB</color>
     <color name="meli_grey">#616161</color>
     <color name="meli_grey_medium">#77DCDCDC</color>
     <color name="meli_grey_light">#EDEDED</color>

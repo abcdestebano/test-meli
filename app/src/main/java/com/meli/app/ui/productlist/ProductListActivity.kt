@@ -10,20 +10,21 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.meli.app.R
 import com.meli.app.databinding.ActivityMainBinding
-import com.meli.app.di.PRODUCT_VIEW_MODEL
+import com.meli.app.di.PRODUCT_LIST_VIEW_MODEL
 import com.meli.app.model.ProductItem
 import com.meli.app.ui.product.ProductActivity
 import com.meli.app.utils.NetworkReceiver
 import com.meli.app.utils.extensions.handleState
 import com.meli.app.utils.extensions.isOnline
 import com.meli.app.utils.extensions.toggleVisibility
-import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
 class ProductListActivity : AppCompatActivity() {
 
-    private val productListViewModel: ProductListViewModel by viewModel(named(PRODUCT_VIEW_MODEL))
+    private val productListViewModel: ProductListViewModel by viewModel(
+        named(PRODUCT_LIST_VIEW_MODEL)
+    )
 
     private var networkReceiver = object : NetworkReceiver() {
         override fun broadcastResult(connected: Boolean) {
@@ -138,7 +139,9 @@ class ProductListActivity : AppCompatActivity() {
     }
 
     private fun goToProduct(product: ProductItem) {
-        val intent = Intent(this, ProductActivity::class.java)
+        val intent = Intent(this, ProductActivity::class.java).apply {
+            putExtra(ProductActivity.PRODUCT_ID_KEY, product.id)
+        }
         startActivity(intent)
     }
 
