@@ -6,19 +6,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.meli.app.data.ProductListRepository
 import com.meli.app.model.ProductItem
+import com.meli.app.model.ProductResultQuery
 import com.meli.app.utils.MeliResult
 import kotlinx.coroutines.launch
 
 class ProductListViewModel(private val productListRepository: ProductListRepository) : ViewModel() {
 
-    private val _productList: MutableLiveData<MeliResult<List<ProductItem>>> = MutableLiveData()
-    val productList: LiveData<MeliResult<List<ProductItem>>> = _productList
+    private val _resultProductList: MutableLiveData<MeliResult<ProductResultQuery>> =
+        MutableLiveData()
+    val resultProductList: LiveData<MeliResult<ProductResultQuery>> = _resultProductList
 
-    fun getListProductsByQuery(query: String) {
-        _productList.value = MeliResult.Loading
+    private val _productList: MutableLiveData<List<ProductItem>> = MutableLiveData()
+    val productList: LiveData<List<ProductItem>> = _productList
+
+    fun getProductListByQuery(query: String) {
+        _resultProductList.value = MeliResult.Loading
         viewModelScope.launch {
-            _productList.value = productListRepository.getProductListByQuery(query)
+            _resultProductList.value = productListRepository.getProductListByQuery(query)
         }
+    }
+
+    fun setProductList(productList: List<ProductItem>) {
+        _productList.value = productList
     }
 
 }

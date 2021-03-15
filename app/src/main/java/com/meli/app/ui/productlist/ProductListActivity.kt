@@ -7,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.meli.app.R
-import com.meli.app.databinding.ActivityMainBinding
+import com.meli.app.databinding.ActivityProductListBinding
 import com.meli.app.di.PRODUCT_LIST_VIEW_MODEL
 import com.meli.app.model.ProductItem
 import com.meli.app.ui.product.ProductActivity
@@ -38,16 +39,22 @@ class ProductListActivity : AppCompatActivity() {
 
     private val productListAdapter = ProductListAdapter(onItemClickProduct)
 
-    private var binding: ActivityMainBinding? = null
+    private var binding: ActivityProductListBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityProductListBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        if (productListViewModel.productList.value?.isNotEmpty() == true) {
+            setDataProductList(productListViewModel.productList.value)
+        } else {
+            setInitialEmptyState()
+        }
+
         setUpRecycler()
-        setInitialEmptyState()
         handleClickListeners()
+        editTextListener()
         registerReceiverNetworkState()
     }
 
@@ -67,57 +74,55 @@ class ProductListActivity : AppCompatActivity() {
         }
     }
 
-    private fun setEmptyStateOffline() {
-        binding?.emptyState?.apply {
-            setContentView(
-                image = R.drawable.ic_satellite,
-                title = resources.getString(R.string.text_offline_empty_state),
-                onButtonClick = { if (context.isOnline()) setInitialEmptyState() }
-            )
-        }
-    }
-
     private fun handleClickListeners() {
         binding?.apply {
             imgMenu.setOnClickListener { showComingSoon() }
             imgShoppingCart.setOnClickListener { showComingSoon() }
-            edtSearchViewItems.setOnEditorActionListener { _, actionId, _ ->
+            searchBar.edtSearch.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     getProductListByQuery()
                 }
                 false
             }
+            searchBar.imgClose.setOnClickListener { clearSearch() }
+        }
+    }
+
+    private fun editTextListener() {
+        binding?.apply {
+            searchBar.edtSearch.addTextChangedListener {
+                searchBar.imgClose.toggleVisibility(it.toString().isNotEmpty())
+            }
         }
     }
 
     private fun getProductListByQuery() {
-        val query = binding?.edtSearchViewItems?.text.toString()
+        val query = binding?.searchBar?.edtSearch?.text.toString()
         if (query.isNotEmpty()) {
-            productListViewModel.getListProductsByQuery(query)
-            productListViewModel.productList.observe(this, { result ->
+            productListViewModel.getProductListByQuery(query)
+            productListViewModel.resultProductList.observe(this, { result ->
                 result.handleState(
                     onLoading = {
                         binding?.rvProductList?.toggleVisibility(show = false)
                         toggleEmptyState(false)
                         toggleStateLoading(true)
                     },
-                    onSuccess = { data -> setDataProductList(data) },
+                    onSuccess = { data ->
+                        productListViewModel.setProductList(data.results)
+                        setDataProductList(data.results)
+                    },
                     onError = { setStateError() }
                 )
             })
         }
     }
 
-    private fun toggleEmptyState(showEmptyState: Boolean) {
-        binding?.emptyState?.toggleVisibility(show = showEmptyState)
-    }
-
     private fun toggleStateLoading(showLoading: Boolean) {
         binding?.loading?.toggleVisibility(show = showLoading)
     }
 
-    private fun setDataProductList(productList: List<ProductItem>) {
-        if (productList.isNotEmpty()) {
+    private fun setDataProductList(productList: List<ProductItem>?) {
+        if (productList?.isNotEmpty() == true) {
             binding?.rvProductList?.toggleVisibility(show = true)
             productListAdapter.productList = productList
             productListAdapter.notifyDataSetChanged()
@@ -125,6 +130,10 @@ class ProductListActivity : AppCompatActivity() {
             setEmptyStateProductList()
         }
         toggleStateLoading(false)
+    }
+
+    private fun toggleEmptyState(showEmptyState: Boolean) {
+        binding?.emptyState?.toggleVisibility(show = showEmptyState)
     }
 
     private fun setEmptyStateProductList() {
@@ -145,6 +154,14 @@ class ProductListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun clearSearch() {
+        binding?.searchBar?.edtSearch?.text?.clear()
+        productListViewModel.setProductList(listOf())
+        binding?.rvProductList?.toggleVisibility(show = false)
+        toggleEmptyState(true)
+        setInitialEmptyState()
+    }
+
     private fun setStateError() {
         toggleEmptyState(true)
         toggleStateLoading(false)
@@ -155,6 +172,17 @@ class ProductListActivity : AppCompatActivity() {
             networkReceiver,
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
+    }
+
+    private fun setEmptyStateOffline() {
+        binding?.emptyState?.apply {
+            setContentView(
+                image = R.drawable.ic_satellite,
+                title = resources.getString(R.string.text_offline_empty_state),
+                description = resources.getString(R.string.description_offline_empty_state),
+                onButtonClick = { if (context.isOnline()) setInitialEmptyState() }
+            )
+        }
     }
 
     private fun showComingSoon() {
@@ -168,6 +196,7 @@ class ProductListActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(networkReceiver)
+        binding?.rvProductList?.adapter = null
         binding = null
     }
 }

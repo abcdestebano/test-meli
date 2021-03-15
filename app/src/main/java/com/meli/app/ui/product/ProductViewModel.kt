@@ -14,7 +14,12 @@ class ProductViewModel(private val productRepository: ProductRepository) : ViewM
     private val _product: MutableLiveData<MeliResult<Product>> = MutableLiveData()
     val product: LiveData<MeliResult<Product>> = _product
 
+    private val _productId: MutableLiveData<String> = MutableLiveData()
+    val productId: LiveData<String> = _productId
+
     fun getProductById(productId: String) {
+        _product.value = MeliResult.Loading
+        _productId.value = productId
         viewModelScope.launch {
             _product.value = productRepository.getProductById(productId)
         }

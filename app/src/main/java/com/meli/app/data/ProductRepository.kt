@@ -4,13 +4,14 @@ import com.meli.app.model.Product
 import com.meli.app.utils.MeliResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class ProductRepository(private val productDataSource: ProductDataSource) {
 
     private val dispatcher = Dispatchers.IO
 
     suspend fun getProductById(productId: String): MeliResult<Product> {
-        return withContext(dispatcher){
+        return withContext(dispatcher) {
             productDataSource.getProductById(productId)
         }
     }

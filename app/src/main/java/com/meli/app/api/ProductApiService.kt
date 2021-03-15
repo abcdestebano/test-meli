@@ -7,6 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * In this interface will be placed every request for Product
+ */
 interface ProductApiService {
 
     @GET("sites/MCO/search")

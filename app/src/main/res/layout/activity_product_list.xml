@@ -21,13 +21,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edt_search_view_items"
-            style="@style/Theme.Meli.Search"
+        <include
+            android:id="@+id/search_bar"
+            layout="@layout/layout_search_bar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_36"
+            android:layout_marginTop="@dimen/margin_8"
             app:layout_constraintEnd_toStartOf="@+id/img_shopping_cart"
             app:layout_constraintStart_toEndOf="@+id/img_menu"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill,LabelFor,UnusedAttribute" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_shopping_cart"
@@ -51,7 +53,7 @@
         <TextView
             style="@style/Theme.Meli.Text.Medium"
             android:layout_marginStart="@dimen/margin_6"
-            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_10"
             android:drawablePadding="@dimen/padding_2"
             android:text="@string/text_example_location"
             app:drawableRightCompat="@drawable/ic_arrow_forward"

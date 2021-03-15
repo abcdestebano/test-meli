@@ -6,5 +6,5 @@ data class ProductAttribute(
     val id: String,
     val name: String,
     @SerializedName("value_name")
-    val valueName: String?
+    var valueName: String?
 )

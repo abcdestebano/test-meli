@@ -4,6 +4,7 @@
     <style name="Theme.Meli" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/meli_yellow</item>
         <item name="colorAccent">@color/meli_blue</item>
+        <item name="android:textAppearance">@style/Theme.Meli.Text.Large</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
     </style>
@@ -12,6 +13,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/meli_yellow</item>
+        <item name="colorControlNormal">@color/meli_blue</item>
         <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
     </style>
 
@@ -25,17 +27,17 @@
     </style>
 
     <style name="Theme.Meli.Search">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/height_36</item>
-        <item name="android:layout_marginTop">@dimen/margin_8</item>
         <item name="android:background">@drawable/layout_edit_text</item>
         <item name="android:drawableLeft">@drawable/ic_search</item>
+        <item name="android:drawablePadding">@dimen/padding_8</item>
         <item name="android:hint">@string/text_hint_search</item>
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:inputType">text</item>
         <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/padding_16</item>
         <item name="android:textColor">@color/meli_black</item>
-        <item name="android:textColorHint">@color/meli_grey</item>
+        <item name="android:textColorHint">@color/meli_grey_light</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -43,6 +45,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/meli_black</item>
+        <item name="fontFamily" tools:targetApi="o">@font/proxima_nova_regular</item>
     </style>
 
     <style name="Theme.Meli.Text.Small" parent="Theme.Meli.Text">
@@ -85,6 +88,15 @@
     <style name="Theme.Meli.Button.Secondary" parent="Theme.Meli.Button">
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/meli_blue_light</item>
         <item name="android:textColor">@color/meli_blue</item>
+    </style>
+
+    <style name="Theme.Meli.Button.Text" parent="@style/Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/meli_blue</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginHorizontal" tools:targetApi="o">16sp</item>
+        <item name="android:layout_height">@dimen/height_48</item>
     </style>
 
 </resources>

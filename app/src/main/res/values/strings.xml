@@ -9,8 +9,18 @@
     <string name="text_products_empty_state">No encontramos publicaciones</string>
     <string name="description_products_empty_state">Revisa que la palabra esté bien escrita</string>
     <string name="text_offline_empty_state">¡Parece que no hay internet!</string>
+    <string name="description_offline_empty_state">Revisa tu conexión para seguir navegando</string>
     <string name="text_coming_soon">Coming soon</string>
     <string name="txv_aux">en</string>
     <string name="btn_buy_now">Comprar ahora</string>
     <string name="btn_add_cart">Agregar al carrito</string>
+    <string name="text_product">Producto</string>
+    <string name="text_open_cart">Open cart</string>
+    <string name="text_add_wish_list">Add wish list</string>
+    <string name="text_stock_available">Stock disponible %d</string>
+    <string name="text_sold_quantity">%d vendidos</string>
+    <string name="text_no_apply">N/A</string>
+    <string name="text_attributes_product">Características del producto</string>
+    <string name="text_error_empty_state">Algo salió mal</string>
+    <string name="description_error_empty_state">Estamos trabajando para solucionarlo</string>
 </resources>

@@ -2,6 +2,7 @@ package com.meli.app.ui.product
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.meli.app.R
 import com.meli.app.databinding.ItemProductPictureBinding
 
 class ProductPicturesViewHolder(

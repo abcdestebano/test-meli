@@ -4,31 +4,28 @@ import com.meli.app.utils.MeliResult
 import com.meli.app.api.ProductApiService
 import com.meli.app.data.ProductDataSource
 import com.meli.app.model.Product
-import com.meli.app.model.ProductItem
+import com.meli.app.model.ProductResultQuery
+import com.meli.app.network.executeRetrofitRequest
 
+/**
+ * This class extends of interface ProductDataSource to do
+ * every request about Product
+ *
+ * @property productApiService
+ */
 class NetworkProductDataSource(
     private val productApiService: ProductApiService
 ) : ProductDataSource {
 
-    override suspend fun getProductListByQuery(query: String): MeliResult<List<ProductItem>> {
-        val result = executeRetrofitRequest {
+    override suspend fun getProductListByQuery(query: String): MeliResult<ProductResultQuery> {
+        return executeRetrofitRequest {
             productApiService.getProductListByQuery(query)
-        }
-        return if (result is MeliResult.Success) {
-            MeliResult.Success(result.data.results)
-        } else {
-            MeliResult.Error(result.toString())
         }
     }
 
     override suspend fun getProductById(productId: String): MeliResult<Product> {
-        val result = executeRetrofitRequest {
+        return executeRetrofitRequest {
             productApiService.getProductById(productId)
-        }
-        return if (result is MeliResult.Success) {
-            MeliResult.Success(result.data)
-        } else {
-            MeliResult.Error(result.toString())
         }
     }
 
