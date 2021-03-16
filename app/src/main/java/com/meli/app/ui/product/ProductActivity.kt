@@ -93,8 +93,8 @@ class ProductActivity : AppCompatActivity() {
             txvStockAvailable.text =
                 resources.getString(R.string.text_stock_available, product.availableQuantity)
         }
-        setProductPictures(product.pictures)
-        setProductAttributes(product.attributes)
+        setProductPictures(product.pictures.take(10))
+        setProductAttributes(product.attributes.take(10))
     }
 
     private fun setProductPictures(pictures: List<ProductPicture>) {
@@ -111,7 +111,7 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun setProductAttributes(attributes: List<ProductAttribute>) {
-        productAttributesAdapter.productAttributesList = attributes.take(10)
+        productAttributesAdapter.productAttributesList = attributes
         productAttributesAdapter.notifyDataSetChanged()
     }
 
