@@ -1,9 +1,7 @@
 package com.meli.app.network
 
-import android.util.Log
 import com.meli.app.utils.MeliResult
 import retrofit2.Response
-import java.io.IOException
 import java.net.UnknownHostException
 
 internal const val TAG = "NetworkManagerRequest"
@@ -26,17 +24,14 @@ internal inline fun <T : Any> executeRetrofitRequest(request: () -> Response<T>)
             if (body != null){
                 MeliResult.Success(body)
             } else {
-                Log.e(TAG, ERROR_EMPTY_BODY)
-                MeliResult.Error(ERROR_NULL_BODY)
+                MeliResult.Error(ERROR_EMPTY_BODY)
             }
         } else {
             val errorBody = response.errorBody()
             val errorText = errorBody?.string() ?: ERROR_NULL_BODY
-            Log.e(TAG, errorText)
             MeliResult.Error(errorText)
         }
     } catch (exception: UnknownHostException) {
-        Log.e(TAG, exception.toString())
         MeliResult.Error(exception.toString())
     }
 }

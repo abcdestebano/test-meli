@@ -1,10 +1,12 @@
 package com.meli.app.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ProductAttribute(
     val id: String,
     val name: String,
-    @SerializedName("value_name")
+    @SerialName("value_name")
     var valueName: String?
 )
