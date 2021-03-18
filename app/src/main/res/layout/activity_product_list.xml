@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.productlist.ProductListActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -22,12 +22,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edt_search_view_items"
+            android:id="@+id/edt_search"
             style="@style/Theme.Meli.Search"
+            android:layout_marginTop="@dimen/margin_8"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="none"
             app:layout_constraintEnd_toStartOf="@+id/img_shopping_cart"
             app:layout_constraintStart_toEndOf="@+id/img_menu"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill,LabelFor,UnusedAttribute" />
+            tools:ignore="Autofill,KeyboardInaccessibleWidget,LabelFor,UnusedAttribute" />
 
         <ImageView
             android:id="@+id/img_shopping_cart"
@@ -51,7 +55,7 @@
         <TextView
             style="@style/Theme.Meli.Text.Medium"
             android:layout_marginStart="@dimen/margin_6"
-            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_10"
             android:drawablePadding="@dimen/padding_2"
             android:text="@string/text_example_location"
             app:drawableRightCompat="@drawable/ic_arrow_forward"
@@ -61,6 +65,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="gone"
@@ -69,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <com.meli.app.CustomEmptyState
+    <com.meli.app.utils.CustomEmptyState
         android:id="@+id/empty_state"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -77,5 +82,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

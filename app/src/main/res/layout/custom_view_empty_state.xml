@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_search_meli" />
+        tools:src="@drawable/ic_search_meli"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/txv_empty_state"
@@ -26,14 +27,27 @@
         app:layout_constraintTop_toBottomOf="@+id/img_empty_state"
         tools:text="@string/text_search_empty_state" />
 
+
+    <TextView
+        android:id="@+id/txv_description_empty_state"
+        style="@style/Theme.Meli.Text.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_empty_state"
+        tools:text="@string/text_search_empty_state" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_empty_state"
-        style="@style/Theme.Meli.Button"
+        style="@style/Theme.Meli.Button.Text"
         android:layout_marginTop="@dimen/margin_16"
         android:text="@string/btn_try_again"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txv_empty_state" />
+        app:layout_constraintTop_toBottomOf="@+id/txv_description_empty_state" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

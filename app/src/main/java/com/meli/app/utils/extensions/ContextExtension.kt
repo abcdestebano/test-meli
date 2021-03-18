@@ -1,10 +1,15 @@
-package com.meli.app
+package com.meli.app.utils.extensions
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
+/**
+ * Function extension to validate if user is connect or not to internet
+ *
+ * @return
+ */
 fun Context.isOnline(): Boolean {
     val connectivityManager =
         this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

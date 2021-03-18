@@ -1,19 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductActivity">
+    tools:context=".ui.product.ProductActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_product"
         style="@style/Theme.Meli.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentTop="true"
+        app:titleTextAppearance="@style/Theme.Meli.Text.Large" />
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_product"
+        android:visibility="gone">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/txv_sold_quantity"
+                style="@style/Theme.Meli.Text.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:textColor="@color/meli_grey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2 vendidos" />
+
+            <TextView
+                android:id="@+id/txv_title"
+                style="@style/Theme.Meli.Text.ExtraLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:textColor="@color/meli_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txv_sold_quantity"
+                tools:text="Apple Macbook Pro 13 2020 Con Apple M1 Chip Ram 8gb 256gb" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager_pictures"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_300"
+                android:layout_marginTop="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@+id/txv_title" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_count_pictures"
+                style="@style/Theme.Meli.Text.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view_pager_pictures"
+                tools:text="1/10" />
+
+            <TextView
+                android:id="@+id/txv_price"
+                style="@style/Theme.Meli.Text.ExtraExtraLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_24"
+                android:textColor="@color/meli_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_pager_pictures"
+                tools:text="$ 5.899.999" />
+
+            <TextView
+                android:id="@+id/txv_stock_available"
+                style="@style/Theme.Meli.Text.Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:textColor="@color/meli_black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txv_price"
+                tools:text="Stock disponible 10" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_buy_now"
+                style="@style/Theme.Meli.Button"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/btn_buy_now"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txv_stock_available" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_cart"
+                style="@style/Theme.Meli.Button.Secondary"
+                android:layout_marginTop="@dimen/margin_8"
+                android:text="@string/btn_add_cart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_buy_now" />
+
+            <View
+                android:id="@+id/view_line_separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_1"
+                android:layout_marginTop="@dimen/margin_24"
+                android:background="@color/meli_grey_medium"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_cart" />
+
+            <TextView
+                android:id="@+id/txv_title_attributes"
+                style="@style/Theme.Meli.Text.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/text_attributes_product"
+                android:textColor="@color/meli_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_line_separator" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_attributes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:paddingBottom="@dimen/padding_16"
+                app:layout_constraintTop_toBottomOf="@+id/txv_title_attributes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.meli.app.utils.CustomEmptyState
+        android:id="@+id/empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_product"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
