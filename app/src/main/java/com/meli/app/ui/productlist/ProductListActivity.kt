@@ -46,15 +46,22 @@ class ProductListActivity : AppCompatActivity() {
         binding = ActivityProductListBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        if (productListViewModel.productList.value?.isNotEmpty() == true) {
-            setDataProductList(productListViewModel.productList.value)
-        } else {
-            setInitialEmptyState()
-        }
-
+        validateShowProductList()
         setUpRecycler()
         handleClickListeners()
         registerReceiverNetworkState()
+    }
+
+    private fun validateShowProductList() {
+        if (isOnline()) {
+            if (productListViewModel.productList.value?.isNotEmpty() == true) {
+                setDataProductList(productListViewModel.productList.value)
+            } else {
+                setInitialEmptyState()
+            }
+        } else {
+            setEmptyStateOffline()
+        }
     }
 
     private fun setUpRecycler() {
@@ -147,6 +154,11 @@ class ProductListActivity : AppCompatActivity() {
     private fun setStateError() {
         toggleEmptyState(true)
         toggleStateLoading(false)
+        if (isOnline()) {
+            setEmptyStateError()
+        } else {
+            setEmptyStateOffline()
+        }
     }
 
     private fun registerReceiverNetworkState() {
@@ -156,14 +168,32 @@ class ProductListActivity : AppCompatActivity() {
         )
     }
 
+    private fun setEmptyStateError() {
+        binding?.emptyState?.apply {
+            setContentView(
+                image = R.drawable.ic_error,
+                title = resources.getString(R.string.text_error_empty_state),
+                description = resources.getString(R.string.description_error_empty_state),
+                onButtonClick = { onClickButtonEmptyState() }
+            )
+        }
+    }
+
     private fun setEmptyStateOffline() {
         binding?.emptyState?.apply {
             setContentView(
                 image = R.drawable.ic_satellite,
                 title = resources.getString(R.string.text_offline_empty_state),
                 description = resources.getString(R.string.description_offline_empty_state),
-                onButtonClick = { if (context.isOnline()) setInitialEmptyState() }
+                onButtonClick = { onClickButtonEmptyState() }
             )
+        }
+    }
+
+    private fun onClickButtonEmptyState() {
+        if (isOnline()) {
+            if (binding?.edtSearch?.text?.isNotEmpty() == true) getProductListByQuery()
+            else setInitialEmptyState()
         }
     }
 
