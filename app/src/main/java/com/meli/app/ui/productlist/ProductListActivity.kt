@@ -27,7 +27,7 @@ class ProductListActivity : AppCompatActivity() {
         named(PRODUCT_LIST_VIEW_MODEL)
     )
 
-    private var networkReceiver = object : NetworkReceiver() {
+    private val networkReceiver = object : NetworkReceiver() {
         override fun broadcastResult(connected: Boolean) {
             if (!connected && productListAdapter.productList.isEmpty()) setEmptyStateOffline()
         }

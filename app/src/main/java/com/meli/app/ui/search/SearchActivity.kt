@@ -26,7 +26,7 @@ class SearchActivity : AppCompatActivity() {
         comeBackToSearch(query)
     }
 
-    private var searchHistoryAdapter = SearchHistoryAdapter(onItemClickSearchHistory)
+    private val searchHistoryAdapter = SearchHistoryAdapter(onItemClickSearchHistory)
 
     companion object {
         const val QUERY = "query"
@@ -78,7 +78,6 @@ class SearchActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
-
 
     private fun setFocusSearch() {
         binding?.searchView?.requestFocus()
