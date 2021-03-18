@@ -104,4 +104,10 @@ class SearchActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding?.rvSearchHistory?.adapter = null
+        binding = null
+    }
+
 }
