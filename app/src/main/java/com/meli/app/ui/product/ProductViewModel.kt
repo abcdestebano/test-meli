@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.meli.app.data.ProductRepository
+import com.meli.app.data.remote.ProductRepository
 import com.meli.app.model.Product
 import com.meli.app.utils.MeliResult
 import kotlinx.coroutines.launch

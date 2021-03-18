@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_search_meli" />
+        tools:src="@drawable/ic_search_meli"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/txv_empty_state"

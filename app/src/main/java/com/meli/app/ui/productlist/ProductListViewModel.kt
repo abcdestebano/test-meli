@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.meli.app.data.ProductListRepository
+import com.meli.app.data.remote.ProductListRepository
 import com.meli.app.model.ProductItem
 import com.meli.app.model.ProductResultQuery
 import com.meli.app.utils.MeliResult

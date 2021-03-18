@@ -23,4 +23,5 @@
     <string name="text_attributes_product">Características del producto</string>
     <string name="text_error_empty_state">Algo salió mal</string>
     <string name="description_error_empty_state">Estamos trabajando para solucionarlo</string>
+    <string name="text_search">Search</string>
 </resources>

@@ -1,7 +1,6 @@
-package com.meli.app.data
+package com.meli.app.data.remote
 
 import com.meli.app.utils.MeliResult
-import com.meli.app.model.ProductItem
 import com.meli.app.model.ProductResultQuery
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

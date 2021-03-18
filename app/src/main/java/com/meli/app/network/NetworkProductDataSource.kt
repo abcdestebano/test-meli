@@ -2,10 +2,9 @@ package com.meli.app.network
 
 import com.meli.app.utils.MeliResult
 import com.meli.app.api.ProductApiService
-import com.meli.app.data.ProductDataSource
+import com.meli.app.data.remote.ProductDataSource
 import com.meli.app.model.Product
 import com.meli.app.model.ProductResultQuery
-import com.meli.app.network.executeRetrofitRequest
 
 /**
  * This class extends of interface ProductDataSource to do

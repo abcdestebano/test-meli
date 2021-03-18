@@ -1,4 +1,4 @@
-package com.meli.app.data
+package com.meli.app.data.remote
 
 import com.meli.app.model.Product
 import com.meli.app.utils.MeliResult

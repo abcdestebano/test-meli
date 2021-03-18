@@ -7,6 +7,7 @@
         <item name="android:textAppearance">@style/Theme.Meli.Text.Large</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:fontFamily">@font/proxima_nova_regular</item>
     </style>
 
     <style name="Theme.Meli.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
@@ -15,6 +16,23 @@
         <item name="android:background">@color/meli_yellow</item>
         <item name="colorControlNormal">@color/meli_blue</item>
         <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+
+    <style name="Theme.Meli.Toolbar.Search" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="colorControlNormal">@color/meli_grey</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+
+    <style name="Theme.Meli.SearchView" parent="@style/Widget.AppCompat.SearchView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:iconifiedByDefault">false</item>
+        <item name="android:queryBackground" tools:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:queryHint">@string/text_hint_search</item>
+        <item name="android:searchIcon" tools:targetApi="lollipop">@null</item>
     </style>
 
     <style name="Theme.Meli.Toolbar.Home" parent="Theme.Meli.Toolbar">
@@ -27,14 +45,12 @@
     </style>
 
     <style name="Theme.Meli.Search">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/height_36</item>
         <item name="android:background">@drawable/layout_edit_text</item>
         <item name="android:drawableLeft">@drawable/ic_search</item>
         <item name="android:drawablePadding">@dimen/padding_8</item>
         <item name="android:hint">@string/text_hint_search</item>
-        <item name="android:imeOptions">actionSearch</item>
-        <item name="android:inputType">text</item>
         <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/padding_16</item>
         <item name="android:textColor">@color/meli_black</item>
         <item name="android:textColorHint">@color/meli_grey_light</item>

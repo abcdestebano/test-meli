@@ -1,19 +1,19 @@
 package com.meli.app.ui.productlist
 
+import android.app.Activity
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.meli.app.R
 import com.meli.app.databinding.ActivityProductListBinding
 import com.meli.app.di.PRODUCT_LIST_VIEW_MODEL
 import com.meli.app.model.ProductItem
 import com.meli.app.ui.product.ProductActivity
+import com.meli.app.ui.search.SearchActivity
 import com.meli.app.utils.NetworkReceiver
 import com.meli.app.utils.extensions.handleState
 import com.meli.app.utils.extensions.isOnline
@@ -29,7 +29,7 @@ class ProductListActivity : AppCompatActivity() {
 
     private var networkReceiver = object : NetworkReceiver() {
         override fun broadcastResult(connected: Boolean) {
-            if (!connected) setEmptyStateOffline()
+            if (!connected && productListAdapter.productList.isEmpty()) setEmptyStateOffline()
         }
     }
 
@@ -54,7 +54,6 @@ class ProductListActivity : AppCompatActivity() {
 
         setUpRecycler()
         handleClickListeners()
-        editTextListener()
         registerReceiverNetworkState()
     }
 
@@ -78,26 +77,17 @@ class ProductListActivity : AppCompatActivity() {
         binding?.apply {
             imgMenu.setOnClickListener { showComingSoon() }
             imgShoppingCart.setOnClickListener { showComingSoon() }
-            searchBar.edtSearch.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    getProductListByQuery()
-                }
-                false
-            }
-            searchBar.imgClose.setOnClickListener { clearSearch() }
+            edtSearch.setOnClickListener { goToSearch() }
         }
     }
 
-    private fun editTextListener() {
-        binding?.apply {
-            searchBar.edtSearch.addTextChangedListener {
-                searchBar.imgClose.toggleVisibility(it.toString().isNotEmpty())
-            }
-        }
+    private fun goToSearch() {
+        val intent = Intent(this, SearchActivity::class.java)
+        startActivityForResult(intent, 0)
     }
 
     private fun getProductListByQuery() {
-        val query = binding?.searchBar?.edtSearch?.text.toString()
+        val query = binding?.edtSearch?.text.toString()
         if (query.isNotEmpty()) {
             productListViewModel.getProductListByQuery(query)
             productListViewModel.resultProductList.observe(this, { result ->
@@ -154,14 +144,6 @@ class ProductListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun clearSearch() {
-        binding?.searchBar?.edtSearch?.text?.clear()
-        productListViewModel.setProductList(listOf())
-        binding?.rvProductList?.toggleVisibility(show = false)
-        toggleEmptyState(true)
-        setInitialEmptyState()
-    }
-
     private fun setStateError() {
         toggleEmptyState(true)
         toggleStateLoading(false)
@@ -191,6 +173,17 @@ class ProductListActivity : AppCompatActivity() {
             resources.getString(R.string.text_coming_soon),
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            data?.let {
+                val query = it.getStringExtra(SearchActivity.QUERY)
+                binding?.edtSearch?.setText(query)
+                getProductListByQuery()
+            }
+        }
     }
 
     override fun onDestroy() {

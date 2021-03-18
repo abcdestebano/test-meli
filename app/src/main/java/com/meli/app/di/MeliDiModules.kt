@@ -1,13 +1,18 @@
 package com.meli.app.di
 
-import com.meli.app.data.ProductDataSource
+import androidx.room.Room
+import com.meli.app.data.local.MeliDatabase
+import com.meli.app.data.local.SearchRepository
+import com.meli.app.data.remote.ProductDataSource
 import com.meli.app.network.NetworkProductDataSource
-import com.meli.app.data.ProductListRepository
-import com.meli.app.data.ProductRepository
+import com.meli.app.data.remote.ProductListRepository
+import com.meli.app.data.remote.ProductRepository
 import com.meli.app.network.buildRetrofit
 import com.meli.app.network.createProductApiService
 import com.meli.app.ui.product.ProductViewModel
 import com.meli.app.ui.productlist.ProductListViewModel
+import com.meli.app.ui.search.SearchViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -19,8 +24,27 @@ internal const val PRODUCT_LIST_REPOSITORY = "productListRepository"
 internal const val PRODUCT_LIST_VIEW_MODEL = "productListViewModel"
 internal const val PRODUCT_REPOSITORY = "productRepository"
 internal const val PRODUCT_VIEW_MODEL = "productViewModel"
+internal const val SEARCH_DAO = "searchDao"
+internal const val SEARCH_REPOSITORY = "searchRepository"
+internal const val SEARCH_VIEW_MODEL = "searchViewModel"
+
+private const val NAME_DATABASE = "meliDatabase"
 
 val meliModule = module {
+
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            MeliDatabase::class.java,
+            NAME_DATABASE
+        ).build()
+    }
+
+    single(named(SEARCH_DAO)) { get<MeliDatabase>().searchDao() }
+
+    single(named(SEARCH_REPOSITORY)) { SearchRepository(get(named(SEARCH_DAO))) }
+
+    viewModel(named(SEARCH_VIEW_MODEL)) { SearchViewModel(get(named(SEARCH_REPOSITORY))) }
 
     single(named(MELI_RETROFIT)) { buildRetrofit() }
 

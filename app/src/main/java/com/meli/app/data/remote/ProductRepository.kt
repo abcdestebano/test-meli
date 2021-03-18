@@ -1,10 +1,9 @@
-package com.meli.app.data
+package com.meli.app.data.remote
 
 import com.meli.app.model.Product
 import com.meli.app.utils.MeliResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 class ProductRepository(private val productDataSource: ProductDataSource) {
 
